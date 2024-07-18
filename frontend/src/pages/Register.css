@@ -1,0 +1,33 @@
+.register-container {
+    width: 18.75rem; /*300px*/
+    margin: 3.125rem auto; /*50px*/
+    padding: 1.25rem; /*20px*/
+    border: .0625rem solid #ccc;/*1px*/
+    border-radius: .3125rem;/*5px*/
+    box-shadow: 0 0 .625rem/*10px*/ rgba(0, 0, 0, 0.1);
+}
+
+.form-group{
+    margin-bottom: .9375rem;/*15px*/
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: .3125rem;/*5px*/
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: .5rem;/*8px*/
+    box-sizing: border-box;
+}
+
+.btn {
+    width: 100%;
+    padding: .625rem;/*10px*/
+}
+
+.error {
+    color: #ff0000;
+    margin-bottom: .625rem;/*10px*/
+}
