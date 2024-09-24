@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import authService from '../services/authService';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const history = useHistory();
+    const history = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,7 +28,7 @@ const Login = () => {
                 <h2> Login </h2>
                 {error && <p className="error">{error}</p>}
                 <div className="form-group">
-                    <label> Email </label>
+                    <label> Email: </label>
                     <input
                         type="email"
                         value={email}
@@ -37,7 +37,7 @@ const Login = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label> Password </label>
+                    <label> Password: </label>
                     <input
                         type="password"
                         value={password}
