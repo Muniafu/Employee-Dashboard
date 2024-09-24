@@ -6,7 +6,7 @@ const getEmployeeData = async (id) => {
     try {
         const response = await axios.get(API_URL + id, {
             headers: {
-                'Authorization': 'Bearer ${localStorage.getItem('token')}'
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
         return response.data;
@@ -19,7 +19,7 @@ const updateEmployeeData = async (id, employeeData) => {
     try {
         const response = await axios.put(API_URL + id, employeeData, {
             headers: {
-                'Authorization': 'Bearer ${localStorage.getItem('token')}'
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
     });
         return response.data;
@@ -32,7 +32,7 @@ const deleteEmployee = async (id) => {
     try {
         const response = await axios.delete(API_URL + id, {
             headers: {
-                'Authorization': 'Bearer ${localStorage.getItem('token')}'
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
         return response.data;
@@ -41,4 +41,10 @@ const deleteEmployee = async (id) => {
     }
 };
 
-export default { getEmployeeData, updateEmployeeData, deleteEmployee };
+const employeeService = {
+    getEmployeeData, 
+    updateEmployeeData, 
+    deleteEmployee
+};
+
+export default employeeService;

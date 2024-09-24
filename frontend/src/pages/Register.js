@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import authService from '../services/authService';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Register.css';
 
-const Register = () => {
+export const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('employee');
     const [error, setError] = useState('');
-    const history = useHistory();
+    const history = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,7 +29,7 @@ const Register = () => {
                 <h2> Register </h2>
                 {error && <p className="error">{error}</p>}
                 <div className="form-group">
-                    <label> Name </label>
+                    <label> Name: </label>
                     <input
                         type="text"
                         value={name}
@@ -38,7 +38,7 @@ const Register = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label> Email </label>
+                    <label> Email: </label>
                     <input
                         type="email"
                         value={email}
@@ -47,7 +47,7 @@ const Register = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label> Password </label>
+                    <label> Password: </label>
                     <input
                         type="password"
                         value={password}
@@ -56,7 +56,7 @@ const Register = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label> Role </label>
+                    <label> Role: </label>
                     <select
                         value={role}
                         onChange={(e) => setRole(e.target.value)}

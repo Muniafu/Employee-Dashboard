@@ -39,4 +39,11 @@ const getCurrentUser = () => {
     return localStorage.getItem('token');
 };
 
-export default { register, login, logout, getCurrentUser };
+const authService = {
+    register,
+    login,
+    logout,
+    getCurrentUser
+};
+
+export default authService;
