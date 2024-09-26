@@ -1,28 +1,36 @@
 const jwt = require('jsonwebtoken');
-const Employee = require('../models/Employee');
-const Manager = require('../models/Manager');
+const User = require('../models/user');
 
-const auth = async (req, res, next) => {
-    const token = req.header('x-auth-token');
-    if (!token) return res.status(401).json({ message: 'No token, authorization denied' });
+const protect = async (req, res, next) => {
+    let token;
 
-    try {
-        const decoded = jwt.verify(token, 'your_jwt_secret');
-        req.user = decoded;
-
-        // Check user role
-        if (req.user.role === 'manager') {
-            const manager = await Manager.findById(req.user.id);
-            if (!manager) return res.status(401).json({ message: 'Manager not found' });
-        } else if (req.user.role === 'employee') {
-            const employee = await Employee.findById(req.user.id);
-            if (!employee) return res.status(401).json({ message: 'Employee not found' });
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+        try {
+            token = req.headers.authorization.split( ' ' )[1];
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            req.user = await User.findById(decoded.id).select('-password');
+            next();
+        } catch (error) {
+            res.status(401).json({
+                message: 'Not authorized'
+            });
         }
+    }
 
+    if (!token) return res.status(401).json({
+        message: 'Not authorized, no token'
+    });
+};
+
+// Middleware to check for admin role (manager)
+const admin = (req, res, next) => {
+    if (req.user && req.user.role === 'manager') {
         next();
-    } catch (e) {
-        res.status(400).json({ message: 'Token is not valid' });
+    } else {
+        res.status(403).json({
+            message: 'Not authorized as a manager'
+        });
     }
 };
 
-module.exports =auth;
+module.exports = { protect, admin };
