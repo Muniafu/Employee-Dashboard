@@ -1,10 +1,17 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const ManagerSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: {type: String, require: true },
-    team: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' }]
-});
+    name: { 
+        type: Schema.Type.ObjectId,
+        ref: 'User', 
+        required: true 
+    },
+    employees: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Employee',
+    }],
+}, { timestamps: true });
 
-module.exports = mongoose.model('Manager', ManagerSchema);
+const Manager = mongoose.model('Manager', ManagerSchema);
+module.exports = Manager;

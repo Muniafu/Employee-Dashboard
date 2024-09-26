@@ -1,10 +1,28 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const FeedbackSchema = new mongoose.Schema({
-    from: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee'},
-    to: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee'},
-    message: { type: String, required: true },
-    date: { type: Date, default: Date.now }
-});
+    employee: { 
+        type: Schema.Types.ObjectId, 
+        ref: 'User',
+        required: true,
+    },
+    feedbackTo: { 
+        type: Schema.Types.ObjectId,
+        ref: 'User', 
+        required: true,
+    },
+    message: {
+        type: String,
+        required: true,
+    },
+    rating: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5,
+    },
+}, { timestamps: true });
 
-module.exports = mongoose.model('Feedback', FeedbackSchema);
+const Feedback = mongoose.model('Feedback', FeedbackSchema);
+module.exports = Feedback;
